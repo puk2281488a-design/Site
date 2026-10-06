@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEVESS — Предзаказ</title>
+<style>
+:root{--blue:#145cff;--blue2:#0b45d8;--dark:#07111f;--soft:#f4f8ff;--line:#dce7f7;--muted:#64748b}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Inter,Arial,sans-serif;color:var(--dark);background:#fff}a{text-decoration:none;color:inherit}.container{width:min(1180px,92%);margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+.navbar{height:74px;display:flex;align-items:center;justify-content:space-between;gap:25px}.logo{font-size:28px;font-weight:950;letter-spacing:-2px}.logo span{color:var(--blue)}nav{display:flex;gap:30px;font-size:14px;font-weight:800}nav a:hover{color:var(--blue)}.cart{display:flex;align-items:center;gap:9px;background:var(--dark);color:#fff;padding:10px 15px;border-radius:99px;font-size:13px;font-weight:800}.count{background:var(--blue);min-width:22px;height:22px;display:grid;place-items:center;border-radius:50%}.cart{cursor:pointer}.cart-panel{position:fixed;right:20px;top:88px;width:min(390px,calc(100% - 40px));background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 25px 70px rgba(7,17,31,.18);padding:22px;z-index:80;display:none}.cart-panel.open{display:block}.cart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.cart-head h3{font-size:22px}.cart-close{border:0;background:#eef3fb;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:20px}.cart-item{display:flex;justify-content:space-between;gap:15px;padding:14px 0;border-top:1px solid var(--line)}.cart-item-info{font-size:14px}.cart-item-info b{display:block;margin-bottom:4px}.cart-item-info span{color:var(--muted)}.qty{display:flex;align-items:center;gap:8px}.qty button{border:1px solid var(--line);background:#fff;width:28px;height:28px;border-radius:6px;cursor:pointer;font-weight:900}.cart-total{display:flex;justify-content:space-between;font-size:18px;font-weight:900;padding:18px 0;border-top:1px solid var(--line);margin-top:8px}.pay-now{display:block;width:100%;border:0;background:var(--blue);color:#fff;padding:15px;border-radius:9px;font-weight:900;cursor:pointer;font-size:14px}.pay-now:hover{background:var(--blue2)}.empty-cart{color:var(--muted);font-size:14px;padding:10px 0 16px}.price-note{font-size:11px;color:var(--muted);margin-top:6px}.payment{background:#f6f9ff}.payment-box{display:flex;justify-content:center;margin-top:35px}.payment-note{width:min(520px,100%);border-radius:18px;padding:30px;background:var(--dark);color:#fff;text-align:center}.payment-note .method{font-size:12px;color:#8fb0ff;font-weight:900;letter-spacing:1.5px}.payment-note h3{font-size:30px;margin:15px 0 10px}.payment-note p{color:#a8b6ca;font-size:14px;line-height:1.6}.pay-button{display:inline-block;margin-top:20px;padding:13px 18px;border-radius:8px;background:var(--blue);color:#fff;font-weight:900}
+.hero{min-height:650px;display:grid;align-items:center;background:linear-gradient(135deg,#fff 0%,#f6f9ff 55%,#e7efff 100%)}.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}.eyebrow{display:inline-block;padding:8px 13px;border-radius:99px;background:#eaf1ff;color:var(--blue);font-weight:900;font-size:11px;letter-spacing:1.5px;margin-bottom:20px}.hero h1{font-size:clamp(60px,8vw,105px);line-height:.86;letter-spacing:-6px;margin-bottom:28px}.hero h1 span{color:var(--blue)}.hero p{max-width:540px;color:var(--muted);font-size:18px;line-height:1.65;margin-bottom:30px}.cta{display:inline-flex;padding:16px 24px;background:var(--blue);color:#fff;border-radius:8px;font-weight:900;transition:.2s}.cta:hover{transform:translateY(-2px);background:var(--blue2)}
+.hero-photo{border-radius:26px;overflow:hidden;background:var(--blue);box-shadow:0 25px 70px rgba(20,92,255,.2);border:8px solid #fff}.hero-photo img{display:block;width:100%;height:470px;object-fit:cover}
+section{padding:95px 0}.section-kicker{color:var(--blue);font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}.section-title{font-size:clamp(38px,5vw,62px);line-height:.95;letter-spacing:-3px}.catalog{background:#fff}.product{margin-top:45px;background:var(--soft);border:1px solid var(--line);border-radius:26px;padding:25px}
+.photo-gallery{display:grid;grid-template-columns:1fr 1fr;gap:20px}.photo-card{position:relative;border-radius:20px;overflow:hidden;background:var(--blue);min-height:440px;box-shadow:0 18px 50px rgba(20,92,255,.16)}.photo-card img{width:100%;height:100%;min-height:440px;display:block;object-fit:cover}.tag{position:absolute;z-index:2;left:16px;top:16px;background:rgba(7,17,31,.9);color:#fff;padding:8px 11px;border-radius:6px;font-size:10px;font-weight:900;letter-spacing:1px}
+.details{display:flex;justify-content:space-between;align-items:center;gap:30px;margin-top:25px;padding:30px;background:#fff;border-radius:18px;border:1px solid var(--line)}.details h2{font-size:32px;letter-spacing:-1px}.details p{color:var(--muted);margin-top:7px}.stock{font-size:11px;color:var(--blue);font-weight:900;margin-top:8px;text-transform:uppercase}.right{display:flex;align-items:center;gap:22px}.price{font-size:36px;font-weight:950;white-space:nowrap}.size-label{display:block;color:var(--muted);font-size:10px;font-weight:900;margin:7px 0 5px;letter-spacing:1px}.size{padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;font-weight:900}.buy{border:0;background:var(--blue);color:#fff;padding:16px 25px;border-radius:8px;font-weight:900;cursor:pointer;transition:.2s}.buy:hover{background:var(--blue2);transform:translateY(-1px)}.buy:disabled{background:#22a06b;cursor:default;transform:none}
+.payment{background:#f6f9ff}.payment-box{display:grid;grid-template-columns:1.2fr .8fr;gap:25px;margin-top:40px}.pay-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px}.pay-card h3{font-size:23px;margin-bottom:12px}.pay-card p{color:var(--muted);font-size:14px;line-height:1.65}.pay-steps{display:grid;gap:12px;margin-top:18px}.pay-step{padding:15px 17px;background:var(--soft);border-radius:10px;font-size:14px}.pay-step b{color:var(--blue)}.payment-note{border-radius:18px;padding:30px;background:var(--dark);color:#fff}.payment-note .method{font-size:12px;color:#8fb0ff;font-weight:900;letter-spacing:1.5px}.payment-note h3{font-size:30px;margin:15px 0 10px}.payment-note p{color:#a8b6ca;font-size:14px;line-height:1.6}.pay-button{display:inline-block;margin-top:20px;padding:13px 18px;border-radius:8px;background:var(--blue);color:#fff;font-weight:900}
+.features{background:var(--dark);color:#fff}.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:45px}.feature{padding:32px;border:1px solid #1e324c;border-radius:16px;background:#0b192b}.feature b{color:#6f9cff;font-size:12px}.feature h3{font-size:21px;margin:25px 0 10px}.feature p{color:#9fb0c7;line-height:1.6;font-size:14px}.delivery{padding:70px 0;background:#fff}.delivery-box{display:flex;justify-content:space-between;align-items:center;gap:30px;background:var(--blue);color:#fff;padding:34px 40px;border-radius:18px}.delivery h2{font-size:30px}.delivery p{opacity:.8;margin-top:5px}.days{font-size:40px;font-weight:950;white-space:nowrap}
+footer{background:#fff;border-top:1px solid var(--line);padding:55px 0 25px}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}.footer-logo{font-size:30px;font-weight:950;letter-spacing:-2px}.footer-logo span{color:var(--blue)}footer p,footer a{display:block;color:var(--muted);font-size:14px;margin-top:10px}footer a:hover{color:var(--blue)}.copy{border-top:1px solid var(--line);margin-top:40px;padding-top:20px;color:#94a3b8;font-size:12px}
+.toast{position:fixed;right:22px;bottom:22px;background:var(--dark);color:#fff;padding:15px 19px;border-radius:9px;font-weight:800;opacity:0;transform:translateY(15px);pointer-events:none;transition:.25s;z-index:100}.toast.show{opacity:1;transform:none}
+@media(max-width:850px){nav{display:none}.hero-grid{grid-template-columns:1fr}.hero{padding:70px 0}.hero-photo img{height:380px}.photo-gallery{grid-template-columns:1fr}.photo-card,.photo-card img{min-height:360px}.details{flex-direction:column;align-items:flex-start}.right{width:100%;justify-content:space-between}.payment-box{grid-template-columns:1fr}.features-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.navbar{height:64px}.cart{padding:8px 11px}.hero h1{font-size:66px;letter-spacing:-4px}.hero p{font-size:15px}.product{padding:12px}.details{padding:22px}.details h2{font-size:27px}.right{flex-wrap:wrap}.price{font-size:31px}.delivery-box{display:block;padding:28px}.days{font-size:34px;margin-top:15px}.footer-grid{grid-template-columns:1fr}section{padding:70px 0}}
+</style>
+</head>
+<body>
+<header><div class="container navbar"><a class="logo" href="#">GEV<span>ESS</span></a><nav><a href="#catalog">Футболка</a><a href="#payment">Оплата</a><a href="#features">Преимущества</a><a href="#contacts">Контакты</a></nav><button class="cart" id="cartButton">🛒 Корзина <span class="count" id="count">0</span></button></div></header>
+<div class="cart-panel" id="cartPanel"><div class="cart-head"><h3>Корзина</h3><button class="cart-close" id="cartClose">×</button></div><div id="cartItems"><div class="empty-cart">Корзина пока пустая.</div></div><div class="cart-total"><span>Итого</span><span id="cartTotal">0 ₴</span></div><button class="pay-now" id="cartPayment">Оплатить на OLX →</button></div>
+<main>
+<section class="hero"><div class="container hero-grid"><div><div class="eyebrow">GEVESS / DROP 01</div><h1>GEVESS<br><span>BLACK</span><br>TEE.</h1><p>Чёрная футболка GEVESS по предзаказу. Оригинальный принт, чистый силуэт и фирменная эстетика бренда.</p><a class="cta" href="#catalog">Смотреть футболку →</a></div><div class="hero-photo"><img src="front-blue.jpg" alt="GEVESS футболка спереди на синем фоне"></div></div></section>
+<section class="catalog" id="catalog"><div class="container"><div class="section-kicker">GEVESS / PRODUCT</div><h2 class="section-title">Предзаказ.<br>Тираж — 10 шт.</h2>
+<div class="product"><div class="photo-gallery"><div class="photo-card"><span class="tag">FRONT</span><img src="front-blue.jpg" alt="GEVESS футболка вид спереди"></div><div class="photo-card"><span class="tag">BACK</span><img src="back-blue.jpg" alt="GEVESS футболка вид сзади"></div></div>
+<div class="details"><div><h2>GEVESS T-SHIRT</h2><p>Чёрная streetwear-футболка</p><div class="stock">● Предзаказ: 10 шт. · Размеры S / M</div></div><div class="right"><div><div class="price" id="price">750 ₴</div><label class="size-label" for="size">РАЗМЕР</label><select class="size" id="size"><option value="S">S — 750 ₴</option><option value="M">M — 800 ₴</option></select><div class="price-note">S — 750 ₴ · M — 800 ₴</div></div><button class="buy" id="buy">Добавить в предзаказ</button></div></div></div></div></section>
+<section class="payment" id="payment"><div class="container"><div class="section-kicker">PAYMENT</div><h2 class="section-title">Оплата.</h2><div class="payment-box"><div class="payment-note"><div class="method">GEVESS / OLX</div><h3>Оплатить заказ</h3><p>После нажатия ты перейдёшь на объявление GEVESS на OLX, где можно оформить покупку.</p><button class="pay-now" id="paymentButton">Оплатить на OLX →</button></div></div></div></section>
+<section class="features" id="features"><div class="container"><div class="section-kicker">WHY GEVESS</div><h2 class="section-title">Главное — в деталях.</h2><div class="features-grid"><article class="feature"><b>01 / MATERIAL</b><h3>Комфорт</h3><p>Футболка создана для повседневной носки и легко вписывается в streetwear-образ.</p></article><article class="feature"><b>02 / DROP</b><h3>Предзаказ 10 шт.</h3><p>Предзаказ открыт на 10 футболок. Доступные размеры — S и M.</p></article><article class="feature"><b>03 / DELIVERY</b><h3>Доставка 3–4 дня</h3><p>Отправка по Украине. Ориентировочный срок доставки — 3–4 дня после готовности заказа.</p></article></div></div></section>
+<section class="delivery"><div class="container"><div class="delivery-box"><div><h2>Доставка по Украине</h2><p>Быстро, удобно и надёжно.</p></div><div class="days">3–4 ДНЯ</div></div></div></section>
+</main>
+<footer id="contacts"><div class="container"><div class="footer-grid"><div><div class="footer-logo">GEV<span>ESS</span></div><p>Independent streetwear. Предзаказ — 10 футболок, размеры S и M.</p></div><div><b>Контакты</b><p>@GEVESSSHOP</p><p>gevessoriginals@gmail.com</p></div><div><b>Социальные сети</b><a href="https://t.me/GEVESSSHOP" target="_blank">Telegram: @GEVESSSHOP</a><a href="https://www.tiktok.com/@gevess1" target="_blank">TikTok: @gevess1</a></div></div><div class="copy">© 2026 GEVESS. Все права защищены.</div></div></footer>
+<div class="toast" id="toast">Футболка добавлена в предзаказ ✓</div>
+<script>
+const buy=document.getElementById('buy'),count=document.getElementById('count'),toast=document.getElementById('toast');
+const sizeSelect=document.getElementById('size'),priceEl=document.getElementById('price');
+const cartButton=document.getElementById('cartButton'),cartPanel=document.getElementById('cartPanel'),cartClose=document.getElementById('cartClose');
+const cartItemsEl=document.getElementById('cartItems'),cartTotalEl=document.getElementById('cartTotal');
+const paymentButton=document.getElementById('paymentButton'),cartPayment=document.getElementById('cartPayment');
+const totalPreorder=10;
+const OLX_LINK=''; // Сюда позже вставим ссылку на объявление OLX
+let cart=[];
+function getPrice(size){return size==='S'?750:800;}
+function renderCart(){
+  const totalQty=cart.reduce((sum,item)=>sum+item.qty,0);
+  count.textContent=totalQty;
+  if(!cart.length){cartItemsEl.innerHTML='<div class="empty-cart">Корзина пока пустая.</div>';cartTotalEl.textContent='0 ₴';return;}
+  cartItemsEl.innerHTML=cart.map((item,i)=>`<div class="cart-item"><div class="cart-item-info"><b>GEVESS T-SHIRT — ${item.size}</b><span>${getPrice(item.size)} ₴ × ${item.qty}</span></div><div class="qty"><button onclick="changeQty(${i},-1)">−</button><b>${item.qty}</b><button onclick="changeQty(${i},1)">+</button></div></div>`).join('');
+  cartTotalEl.textContent=cart.reduce((sum,item)=>sum+getPrice(item.size)*item.qty,0)+' ₴';
+}
+function addToCart(){
+  const size=sizeSelect.value;
+  const totalQty=cart.reduce((sum,item)=>sum+item.qty,0);
+  if(totalQty>=totalPreorder){toast.textContent='Лимит предзаказа — 10 футболок';}
+  else{const existing=cart.find(item=>item.size===size);if(existing) existing.qty++; else cart.push({size,qty:1});toast.textContent=`Размер ${size} добавлен в корзину ✓`;renderCart();}
+  toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2500);
+}
+function changeQty(index,delta){
+  const totalQty=cart.reduce((sum,item)=>sum+item.qty,0);
+  if(delta>0 && totalQty>=totalPreorder)return;
+  cart[index].qty+=delta;if(cart[index].qty<=0)cart.splice(index,1);renderCart();
+}
+window.changeQty=changeQty;
+buy.addEventListener('click',addToCart);
+sizeSelect.addEventListener('change',()=>{priceEl.textContent=getPrice(sizeSelect.value)+' ₴';});
+cartButton.addEventListener('click',()=>cartPanel.classList.toggle('open'));
+cartClose.addEventListener('click',()=>cartPanel.classList.remove('open'));
+function goToOlx(){
+  if(!OLX_LINK){alert('Ссылка на объявление OLX ещё не добавлена. Пришли её мне, и я вставлю её в сайт.');return;}
+  window.open(OLX_LINK,'_blank');
+}
+paymentButton.addEventListener('click',goToOlx);
+cartPayment.addEventListener('click',goToOlx);
+renderCart();
+</script>
+</body>
+</html>
